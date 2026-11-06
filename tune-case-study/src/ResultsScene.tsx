@@ -22,13 +22,15 @@ const Kpi: React.FC<{
   label: string;
   x: number;
   startFrame: number;
-}> = ({ value, format, label, x, startFrame }) => {
+  columnW?: number;
+  maxFont?: number;
+}> = ({ value, format, label, x, startFrame, columnW = COLUMN_W, maxFont = 230 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const decimals = decimalsOf(value);
   const finalText = fmt(value, decimals, format);
   // Poppins ExtraBold digits ~0.6em wide; fit the widest figure inside the column.
-  const fontSize = Math.min(230, Math.floor(COLUMN_W / (finalText.length * 0.6)));
+  const fontSize = Math.min(maxFont, Math.floor(columnW / (finalText.length * 0.6)));
   const shown = interpolate(frame, [startFrame, startFrame + 1.7 * fps], [0, value], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -48,7 +50,7 @@ const Kpi: React.FC<{
     extrapolateRight: "clamp",
   });
   return (
-    <div style={{ position: "absolute", left: x, top: 430, width: COLUMN_W }}>
+    <div style={{ position: "absolute", left: x, top: 430, width: columnW }}>
       <div
         style={{
           fontFamily: POPPINS,
@@ -151,7 +153,15 @@ export const ResultsScene: React.FC<{
         </div>
       ) : (
         <>
-          <Kpi value={takeUpUplift} format={takeUpFormat} label="take-up rate" x={200} startFrame={Math.round(0.8 * fps)} />
+          <Kpi
+            value={takeUpUplift}
+            format={takeUpFormat}
+            label="take-up rate"
+            x={200}
+            startFrame={Math.round(0.8 * fps)}
+            columnW={showRpp ? COLUMN_W : 1400}
+            maxFont={showRpp ? 230 : 340}
+          />
           {showRpp && rppUplift !== null ? (
             <Kpi value={rppUplift} format="percent" label="revenue per passenger" x={1000} startFrame={Math.round(1.1 * fps)} />
           ) : null}

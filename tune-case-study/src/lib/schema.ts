@@ -22,7 +22,7 @@ export type CaseStudyProps = z.infer<typeof caseStudySchema>;
 export const defaultCaseStudyProps: CaseStudyProps = {
   takeUpUplift: 3.2, // supplied by user: 3.2x take-up (= +220% vs baseline)
   takeUpFormat: "multiple",
-  showRpp: true,
+  showRpp: false, // single-KPI slide (user choice); set true + rppUplift for two KPIs
   rppUplift: null,
   resultsNote: "",
   ctaText: "",
