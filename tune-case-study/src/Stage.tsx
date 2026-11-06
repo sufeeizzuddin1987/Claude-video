@@ -23,7 +23,7 @@ const FADE_OUT_FRAMES = 20;
  * 1920x1080 "stage": the v17 video with burned-in captions covered, the results slide
  * rebuilt, and an optional CTA on the end card. Layout wrappers scale this into 16:9 / 1:1 / 9:16.
  */
-export const Stage: React.FC<CaseStudyProps> = ({ takeUpUplift, rppUplift, resultsNote, ctaText }) => {
+export const Stage: React.FC<CaseStudyProps> = ({ takeUpUplift, takeUpFormat, showRpp, rppUplift, resultsNote, ctaText }) => {
   return (
     <AbsoluteFill style={{ width: SOURCE_W, height: SOURCE_H, backgroundColor: "#fff" }}>
       <Video
@@ -56,7 +56,7 @@ export const Stage: React.FC<CaseStudyProps> = ({ takeUpUplift, rppUplift, resul
 
       {/* Rebuilt results slide: opaque, replaces the placeholder slide */}
       <Sequence from={s(RESULTS_FROM_S)} durationInFrames={s(RESULTS_TO_S - RESULTS_FROM_S)} name="Results">
-        <ResultsScene takeUpUplift={takeUpUplift} rppUplift={rppUplift} note={resultsNote} />
+        <ResultsScene takeUpUplift={takeUpUplift} takeUpFormat={takeUpFormat} showRpp={showRpp} rppUplift={rppUplift} note={resultsNote} />
       </Sequence>
 
       {/* Optional CTA over the end card */}

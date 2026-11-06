@@ -13,7 +13,7 @@ Not committed (107 MB). Put it at `public/src/v17.mp4` before running Studio or 
 | 1:1 and 9:16 compositions | Social formats; video is letterboxed, captions set larger below |
 
 ## Before rendering
-Results figures are **required props**. Rendering throws until both are set (by design):
+Results figures are **required props** (`takeUpUplift` shown as `3.2x` via `takeUpFormat: "multiple"`; set `showRpp: false` for a single-KPI slide). Rendering throws until both are set (by design):
 
     npx remotion render CaseStudy-16x9 out/case-study-16x9.mp4 \
       --props='{"takeUpUplift":0,"rppUplift":0,"resultsNote":"","ctaText":""}'

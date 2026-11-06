@@ -13,16 +13,20 @@ import { POPPINS } from "./lib/fonts";
 const COLUMN_W = 700;
 const decimalsOf = (n: number) => (String(n).split(".")[1] ?? "").length;
 
+const fmt = (n: number, decimals: number, format: "percent" | "multiple") =>
+  format === "multiple" ? `${n.toFixed(decimals)}x` : `+${n.toFixed(decimals)}%`;
+
 const Kpi: React.FC<{
   value: number;
+  format: "percent" | "multiple";
   label: string;
   x: number;
   startFrame: number;
-}> = ({ value, label, x, startFrame }) => {
+}> = ({ value, format, label, x, startFrame }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const decimals = decimalsOf(value);
-  const finalText = `+${value.toFixed(decimals)}%`;
+  const finalText = fmt(value, decimals, format);
   // Poppins ExtraBold digits ~0.6em wide; fit the widest figure inside the column.
   const fontSize = Math.min(230, Math.floor(COLUMN_W / (finalText.length * 0.6)));
   const shown = interpolate(frame, [startFrame, startFrame + 1.7 * fps], [0, value], {
@@ -58,7 +62,7 @@ const Kpi: React.FC<{
           whiteSpace: "nowrap",
         }}
       >
-        +{shown.toFixed(decimals)}%
+        {fmt(shown, decimals, format)}
       </div>
       <div
         style={{
@@ -79,12 +83,14 @@ const Kpi: React.FC<{
 /** Replacement for the source "The results" slide. Numbers come from props, never hard-coded. */
 export const ResultsScene: React.FC<{
   takeUpUplift: number | null;
+  takeUpFormat: "percent" | "multiple";
+  showRpp: boolean;
   rppUplift: number | null;
   note: string;
-}> = ({ takeUpUplift, rppUplift, note }) => {
+}> = ({ takeUpUplift, takeUpFormat, showRpp, rppUplift, note }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
-  const missing = takeUpUplift === null || rppUplift === null;
+  const missing = takeUpUplift === null || (showRpp && rppUplift === null);
 
   if (missing && getRemotionEnvironment().isRendering) {
     throw new Error(
@@ -145,8 +151,10 @@ export const ResultsScene: React.FC<{
         </div>
       ) : (
         <>
-          <Kpi value={takeUpUplift} label="take-up rate" x={200} startFrame={Math.round(0.8 * fps)} />
-          <Kpi value={rppUplift} label="revenue per passenger" x={1000} startFrame={Math.round(1.1 * fps)} />
+          <Kpi value={takeUpUplift} format={takeUpFormat} label="take-up rate" x={200} startFrame={Math.round(0.8 * fps)} />
+          {showRpp && rppUplift !== null ? (
+            <Kpi value={rppUplift} format="percent" label="revenue per passenger" x={1000} startFrame={Math.round(1.1 * fps)} />
+          ) : null}
         </>
       )}
       {note ? (
