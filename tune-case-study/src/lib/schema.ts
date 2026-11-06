@@ -17,7 +17,7 @@ export const caseStudySchema = z.object({
 export type CaseStudyProps = z.infer<typeof caseStudySchema>;
 
 export const defaultCaseStudyProps: CaseStudyProps = {
-  takeUpUplift: null,
+  takeUpUplift: 220, // supplied by user (Tune Protect), take-up rate uplift %
   rppUplift: null,
   resultsNote: "",
   ctaText: "",
