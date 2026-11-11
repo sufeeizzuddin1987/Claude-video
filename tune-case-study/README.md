@@ -30,3 +30,12 @@ Compositions: `CaseStudy-16x9`, `CaseStudy-1x1`, `CaseStudy-9x16`.
 ## Commands
     npm run dev      # Studio
     npm run lint     # eslint + tsc
+
+## API explainer: how AirAsia and Tune Protect connect
+Composition `ApiExplainer-16x9` (1920x1080, 30fps, 91s, no audio). Illustrated motion graphics; code in `src/ApiExplainer/`.
+Story: one API connection -> quote request -> eligibility / pricing / packaging in the Tune Protect engine -> multiple priced products back in the AirAsia booking flow -> bind -> policies issued.
+
+All endpoints, payloads, product names and prices are **illustrative**, not the real integration spec. Edit them in `src/ApiExplainer/data.ts` (products, prices) and `StageScene.tsx` (payloads). Narration captions and headlines live in `src/ApiExplainer/Chrome.tsx`.
+
+    npx remotion studio                                   # preview
+    npx remotion render ApiExplainer-16x9 out/api-explainer.mp4
