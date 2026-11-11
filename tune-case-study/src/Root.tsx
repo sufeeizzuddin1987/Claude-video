@@ -2,6 +2,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { CaseStudy, layoutSize } from "./CaseStudy";
 import { API_DURATION_S, API_FPS, ApiExplainer } from "./ApiExplainer";
+import { ApiVisual, VISUAL_DURATION_S, VISUAL_FPS } from "./ApiVisual";
 import { DURATION_IN_FRAMES, FPS } from "./lib/constants";
 import { caseStudySchema, defaultCaseStudyProps, type CaseStudyProps } from "./lib/schema";
 
@@ -11,6 +12,14 @@ const Tall: React.FC<CaseStudyProps> = (p) => <CaseStudy {...p} layout="9x16" />
 
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition
+      id="ApiVisual-16x9"
+      component={ApiVisual}
+      durationInFrames={VISUAL_DURATION_S * VISUAL_FPS}
+      fps={VISUAL_FPS}
+      width={1920}
+      height={1080}
+    />
     <Composition
       id="ApiExplainer-16x9"
       component={ApiExplainer}

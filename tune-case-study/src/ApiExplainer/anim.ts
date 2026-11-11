@@ -28,3 +28,18 @@ export const usePop = (t: number, at: number): number => {
 };
 
 export const money = (n: number): string => n.toFixed(2);
+
+/** Pure springy pop (no hooks) at 30fps. */
+export const pop = (t: number, at: number): number =>
+  t < at ? 0 : spring({ frame: (t - at) * 30, fps: 30, config: { damping: 13, stiffness: 150, mass: 0.7 } });
+
+/** Piecewise keyframes: [time, ...values]. Returns interpolated values. */
+export const keys = (t: number, frames: number[][]): number[] => {
+  const times = frames.map((k) => k[0]);
+  const n = frames[0].length - 1;
+  const out: number[] = [];
+  for (let i = 1; i <= n; i++) {
+    out.push(interpolate(t, times, frames.map((k) => k[i]), { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: easeInOut }));
+  }
+  return out;
+};

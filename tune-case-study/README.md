@@ -39,3 +39,8 @@ All endpoints, payloads, product names and prices are **illustrative**, not the 
 
     npx remotion studio                                   # preview
     npx remotion render ApiExplainer-16x9 out/api-explainer.mp4
+
+### Visual-first cut: `ApiVisual-16x9` (87s)
+Same story with the text replaced by illustration: passenger + phone, an API pipe carrying parcels, and an engine conveyor (eligibility gate, pricing press, packaging crate). Code in `src/ApiVisual/`; reuses theme, icons and title/end cards from `src/ApiExplainer/`. Product icons and prices: `src/ApiExplainer/data.ts`.
+
+    npx remotion render ApiVisual-16x9 out/api-visual.mp4

@@ -3,7 +3,8 @@ import React from "react";
 export type IconName =
   | "plane" | "shield" | "shieldPlane" | "bag" | "clock" | "ticketX" | "medical"
   | "catalog" | "funnel" | "tag" | "policy" | "pin" | "calendar" | "people" | "card"
-  | "device" | "globe" | "lock" | "arrowR" | "arrowL" | "check" | "cross";
+  | "device" | "globe" | "lock" | "arrowR" | "arrowL" | "check" | "cross"
+  | "coin" | "stopwatch" | "pie" | "envelope" | "box" | "plug" | "plus" | "heart" | "desktop" | "arrowUp" | "arrowDown" | "bolt";
 
 const SHIELD = "M32 6 L54 14 V32 C54 46 44 55 32 59 C20 55 10 46 10 32 V14 Z";
 
@@ -117,6 +118,54 @@ const shapes: Record<IconName, React.ReactNode> = {
   arrowL: <path d="M56 32 H10 M24 18 L10 32 L24 46" />,
   check: <path d="M12 34 L26 48 L52 20" />,
   cross: <path d="M16 16 L48 48 M48 16 L16 48" />,
+  coin: (
+    <>
+      <circle cx="32" cy="32" r="22" />
+      <circle cx="32" cy="32" r="13" />
+    </>
+  ),
+  stopwatch: (
+    <>
+      <circle cx="32" cy="36" r="20" />
+      <path d="M32 36 L40 27 M26 8 H38 M32 8 V16" />
+    </>
+  ),
+  pie: (
+    <>
+      <circle cx="32" cy="32" r="22" />
+      <path d="M32 32 V10 M32 32 L48 48" />
+    </>
+  ),
+  envelope: (
+    <>
+      <rect x="8" y="16" width="48" height="32" rx="5" />
+      <path d="M8 20 L32 38 L56 20" />
+    </>
+  ),
+  box: (
+    <>
+      <path d="M8 22 L32 10 L56 22 V46 L32 58 L8 46 Z" />
+      <path d="M8 22 L32 34 L56 22 M32 34 V58" />
+    </>
+  ),
+  plug: (
+    <>
+      <path d="M24 8 V22 M40 8 V22" />
+      <rect x="16" y="22" width="32" height="16" rx="6" />
+      <path d="M32 38 V56" />
+    </>
+  ),
+  plus: <path d="M32 12 V52 M12 32 H52" />,
+  heart: <path d="M32 54 C10 38 8 20 20 14 C27 10 32 16 32 20 C32 16 37 10 44 14 C56 20 54 38 32 54 Z" />,
+  desktop: (
+    <>
+      <rect x="8" y="12" width="48" height="32" rx="4" />
+      <path d="M24 56 H40 M32 44 V56" />
+    </>
+  ),
+  arrowUp: <path d="M32 54 V12 M18 26 L32 12 L46 26" />,
+  arrowDown: <path d="M32 10 V52 M18 38 L32 52 L46 38" />,
+  bolt: <path d="M36 6 L14 36 H30 L26 58 L50 26 H34 Z" />,
 };
 
 export const Icon: React.FC<{ name: IconName; size?: number; color?: string; stroke?: number }> = ({
